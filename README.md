@@ -1,6 +1,6 @@
-### Console-App-on-C-
+# Console-App-on-C-
 ## Мое первое приложение на C++ !
-# Я старался
+### Я старался
 
 ```cpp
 #include <iostream>
