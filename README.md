@@ -1,6 +1,6 @@
 # Console App on C++
 ## Мое первое консольное приложение на C++ !
-### [![Latest Release](https://img.shields.io/github/v/release/gordey9992/Console-App-on-C-?label=Latest%20Release&color=blue)](https://github.com/gordey9992/Console-App-on-C-/releases/)
+### [![Release](https://img.shields.io/github/v/release/gordey9992/Console-App-on-C-?label=Release&color=blue)](https://github.com/gordey9992/Console-App-on-C-/releases/tag/releasetag)
 ```cpp
 #include <iosteam>
 
