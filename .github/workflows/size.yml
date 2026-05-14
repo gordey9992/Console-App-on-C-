@@ -6,23 +6,27 @@ on:
 jobs:
   update-size:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Get release size
         id: size
         run: |
+          sudo apt-get install -y jq
           SIZE=$(curl -s https://api.github.com/repos/gordey9992/Console-App-on-C-/releases/latest | jq '.assets[0].size')
           echo "size=$SIZE" >> $GITHUB_OUTPUT
 
       - name: Create badge
-        uses: badgen/badgen-action@v1
-        with:
-          label: Размер
-          status: ${{ steps.size.outputs.size }} bytes
-          color: orange
-          output: badge-size.svg
+        run: |
+          curl -s "https://img.shields.io/badge/Размер-${{ steps.size.outputs.size }}%20байт-orange" > badge-size.svg
 
-      - name: Upload badge
-        uses: actions/upload-artifact@v4
-        with:
-          name: badge-size
-          path: badge-size.svg
+      - name: Update README
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add badge-size.svg
+          git commit -m "Update size badge" || echo "No changes to commit"
+          git push
