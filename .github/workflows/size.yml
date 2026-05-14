@@ -1,0 +1,28 @@
+name: Update size badge
+on:
+  release:
+    types: [published]
+
+jobs:
+  update-size:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get release size
+        id: size
+        run: |
+          SIZE=$(curl -s https://api.github.com/repos/gordey9992/Console-App-on-C-/releases/latest | jq '.assets[0].size')
+          echo "size=$SIZE" >> $GITHUB_OUTPUT
+
+      - name: Create badge
+        uses: badgen/badgen-action@v1
+        with:
+          label: Размер
+          status: ${{ steps.size.outputs.size }} bytes
+          color: orange
+          output: badge-size.svg
+
+      - name: Upload badge
+        uses: actions/upload-artifact@v4
+        with:
+          name: badge-size
+          path: badge-size.svg
